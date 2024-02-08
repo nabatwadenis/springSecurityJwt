@@ -5,6 +5,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,8 @@ public class JwtService {
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
     }
+
+    @PreAuthorize("hasAnyRole({'ADMIN'})")
     public Boolean isValid(String token, UserDetails user){
         String username = extractUsername(token);
         return (username.equals(user.getUsername()) && !isTokenExpired(token));
