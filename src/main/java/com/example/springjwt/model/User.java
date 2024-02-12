@@ -47,7 +47,7 @@ public class User implements UserDetails {
         this.firstName = firstName;
     }
 
-    public String getLastName(String nabatwa) {
+    public String getLastName() {
         return lastName;
     }
 
